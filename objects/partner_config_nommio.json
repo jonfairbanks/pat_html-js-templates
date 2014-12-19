@@ -1,0 +1,18 @@
+{
+	"partner": {
+		"name": "Nommio",
+		"bn": "DoubleUnderline_SP",
+		"version": "1",
+		"demoMode": false,
+		"tableNumberBinding": false,
+		"tableNumberBindingType": "Table Number",
+		"invoiceBySeat": false,
+		"billSplit": true,
+		"billSplitBySeat": false,
+		"poll_statusRate": 5000,
+		"req_dataType": "json",
+		"req_tableStatus": "controllers/status.php?merchant_id={merchant_id}&pp_customer_id={pp_customer_id}",
+		"req_tableBind": "controllers/status.php?merchant_id={merchant_id}&pp_customer_id={pp_customer_id}&table_code={table_id}",
+		"req_tablePay": "controllers/pay.php"
+	}
+}

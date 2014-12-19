@@ -1,0 +1,18 @@
+{
+	"partner": {
+		"name": "Micros",
+		"bn": "DoubleUnderline_SP",
+		"version": "1",
+		"demoMode": false,
+		"tableNumberBinding": true,
+		"tableNumberBindingType": "Table Code",
+		"invoiceBySeat": false,
+		"billSplit": true,
+		"billSplitBySeat": true,
+		"poll_statusRate": 5000,
+		"req_dataType": "json",
+		"req_tableStatus": "https://sampledomain.com/v1/restaurants/{merchant_id}/pay_at_table/status?pp_customer_id={pp_customer_id}",
+		"req_tableBind": "https://sampledomain.com/v1/restaurants/{merchant_id}/pay_at_table/status?pp_customer_id={pp_customer_id}&table_code={table_id}",
+		"req_tablePay": "https://sampledomain.com/v1/restaurants/{merchant_id}/pay_at_table/payments"
+	}
+}

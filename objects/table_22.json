@@ -1,0 +1,65 @@
+{
+  "locale": {
+    "locale_x": "en",
+    "currency": "USD",
+    "currency_symbol": "$",
+    "currency_symbol_after_number": false,
+    "decimal": ".",
+    "thousands": ","
+  },
+  "merchant": {
+    "title": "Ryan's Cafe",
+    "wallpaper": false,
+    "bg_color": "#0079c1",
+    "prices_include_tax": false,
+    "use_table_id": true,
+    "calculate_tip_including_tax": false,
+    "allow_customer_reviews": true
+  },
+  "table": {
+    "status": "open",
+    "cashier_id": "Alex",
+    "total": 206.65,
+    "tax": 26.86,
+    "table_code": "22",
+    "table_name": "22",
+    "items": [
+        {
+            "name": "Molson Canadian",
+            "quantity": 4,
+            "unitPrice": 3.10
+        },
+        {
+            "name": "Cocktail - El Presidente",
+            "quantity": 2,
+            "unitPrice": 6.88
+        },
+        {
+            "name": "Cocktail - Four Horsemen",
+            "quantity": 2,
+            "unitPrice": 7.10
+        },
+        {
+            "name": "Super Nachos",
+            "description": "Extra Cheese",
+            "quantity": 1,
+            "unitPrice": 8.20
+        },
+        {
+            "name": "Shot - Tequila",
+            "quantity": 4,
+            "unitPrice": 3.99
+        },
+         {
+            "name": "Bottle - Mionetto Prosecco",
+            "quantity": 1,
+            "unitPrice": 42.12
+        },
+        {
+            "name": "Poutine W/ Gravy",
+            "quantity": 1,
+            "unitPrice": 8.75
+        }
+    ]
+  }
+}

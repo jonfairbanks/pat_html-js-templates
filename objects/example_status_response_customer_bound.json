@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "status": 200
+  },
+  "locale": {
+    "locale_x": "en",
+    "currency": "CAD",
+    "currency_symbol": "$",
+    "currency_symbol_after_number": false,
+    "decimal": ".",
+    "thousands": ","
+  },
+  "merchant": {
+    "title": "Ryan's Cafe",
+    "wallpaper": false,
+    "bg_color": "#0079c1",
+    "prices_include_tax": false,
+    "use_table_id": true,
+    "calculate_tip_including_tax": false,
+    "allow_customer_reviews": true
+  },
+  "table": {
+    "id": "d797374e-58a0-4534-b37a-e145357f5a5b",
+    "status": "open",
+    "cashier_id": "Alex",
+    "sub_total": 74.97,
+    "total_tax": 9.75,
+    "table_code": "T1-7",
+    "table_name": "T1-7",
+    "payment_split_types": [
+      "split_evenly",
+      "split_by_seat",
+      "all_in_one"
+    ],
+    "shared_items": [
+
+    ],
+    "seats": [
+      {
+        "id": "3ad34cec-d062-43e7-abfe-e675384a213a",
+        "total_tax": "9.75",
+        "payment_by_other_means": 0.0,
+        "items": [
+          {
+            "name": "Margarita",
+            "qty": 1,
+            "unit_price": 9.99
+          },
+          {
+            "name": "Pota's Mantineia White Wine",
+            "qty": 1,
+            "unit_price": 54.99
+          },
+          {
+            "name": "Mojito",
+            "qty": 1,
+            "unit_price": 9.99
+          }
+        ]
+      },
+      {
+        "id": "aab72a95-7491-475b-86b4-9e6bc2de9b3f",
+        "total_tax": 0.0,
+        "payment_by_other_means": 0.0,
+        "items": [
+
+        ]
+      },
+      {
+        "id": "dbac570c-1991-4162-9be4-a88c4f94c401",
+        "total_tax": 0.0,
+        "payment_by_other_means": 0.0,
+        "items": [
+
+        ]
+      }
+    ]
+  }
+}

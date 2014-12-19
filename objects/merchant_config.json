@@ -1,0 +1,17 @@
+{
+	"merchant": {
+		"title": "Ryan's Cafe",
+		"wallpaper": false,
+		"bg_color": "#0079c1",
+		"prices_include_tax" : false,
+		"use_table_number": true,
+		"demo_mode": true,
+		"calculate_tip_including_tax" : false
+	},
+	"locale":{
+		"currency_symbol": "$",
+		"currency_symbol_after_number": false,
+		"decimal": ".",
+		"thousands": ","
+	}
+}

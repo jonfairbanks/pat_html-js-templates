@@ -1,0 +1,119 @@
+{
+  "locale": {
+    "locale_x": "en",
+    "currency": "CAD",
+    "currency_symbol": "$",
+    "currency_symbol_after_number": false,
+    "decimal": ".",
+    "thousands": ","
+  },
+  "merchant": {
+    "title": "Ryan's Cafe",
+    "wallpaper": false,
+    "bg_color": "#0079c1",
+    "prices_include_tax": false,
+    "use_table_id": true,
+    "calculate_tip_including_tax": false,
+    "allow_customer_reviews": true
+  },
+  "table": {
+    "status": "open",
+    "cashier_id": "Alex",
+    "total": 206.65,
+    "table_code": "T1-8",
+    "table_name": "T1-8",
+    "shared_items": [
+      {
+        "name": "Palazzo's Napa Valley Red Wine",
+        "qty": 1,
+        "unit_price": 38.49
+      }
+    ],
+    "seats": [
+      {
+        "payment_by_other_means": 0.0,
+        "items": [
+          {
+            "name": "Croissant",
+            "qty": 1,
+            "unit_price": 2.4
+          },
+          {
+            "name": "Coffee Americano",
+            "qty": 1,
+            "unit_price": 2.85
+          },
+          {
+            "name": "Martini",
+            "qty": 1,
+            "unit_price": 10.99
+          },
+          {
+            "name": "Scallop Bacon Soup",
+            "qty": 1,
+            "unit_price": 11.99
+          }
+        ]
+      },
+      {
+        "pp_customer_id": "8H933SGNQ6GAC",
+        "customer_name": "Ryan M.",
+        "customer_photo_url": "https://pics.paypal.com/00/s/MjAwWDIwMA==/z/57oAAOxytBZSQOxX/$T2eC16FHJIQFHHjSU75cBSQO)(D3(w~~60_2.JPG",
+        "payment_by_other_means": 0.0,
+        "items": [
+          {
+            "name": "Shrimp Cocktail",
+            "qty": 1,
+            "unit_price": 12.99
+          },
+          {
+            "name": "Chicken Breast",
+            "qty": 1,
+            "unit_price": 16.99
+          }
+        ]
+      },
+      {
+        "pp_customer_id": "EPJ9DG8PEFZ4L",
+        "customer_name": "Derek H.",
+        "customer_photo_url": "https://pics.paypal.com/00/s/MjAwWDIwMA==/z/PNMAAOxyu4dRwcNf/$(KGrHqNHJ!0FGn,qjZsJBRwcNfcRNw~~60_2.JPG",
+        "payment_by_other_means": 0.0,
+        "items": [
+          {
+            "name": "Domaine Serene Red Wine",
+            "qty": 1,
+            "unit_price": 39.99
+          },
+          {
+            "name": "Mojito",
+            "qty": 1,
+            "unit_price": 9.99
+          },
+          {
+            "name": "Domaine Serene Red Wine",
+            "qty": 1,
+            "unit_price": 39.99
+          }
+        ]
+      },
+      {
+        "pp_customer_id": "7EJCGX7DJGN9E",
+        "customer_name": "Steven W.",
+        "customer_photo_url": "https://pics.paypal.com/00/s/MjAwWDIwMA==/z/QF4AAOxyvuVSF7DY/$T2eC16ZHJHMFH!,qD,y!BSF7D(n24Q~~60_2.JPG",
+        "payment_by_other_means": 0.0,
+        "items": [
+          {
+            "name": "Mojito",
+            "qty": 1,
+            "unit_price": 9.99
+          },
+          {
+            "name": "Margarita",
+            "qty": 1,
+            "unit_price": 9.99
+          }
+        ]
+      }
+    ]
+  }
+}

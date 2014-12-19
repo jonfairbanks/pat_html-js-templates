@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "status": 500, 
+    "message": "Friendly Error Message"
+  }
+}

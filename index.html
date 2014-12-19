@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		
+		<title class="merchant_title">PayPal Order Ahead</title>
+
+		<!-- Standard jQquery Mobile themes can be created and replaced, to apply universal styling -->
+		<!-- Go to: http://jquerymobile.com/themeroller/index.php to build one, and download it to the themes directory. -->
+		<link rel="stylesheet" href="themes/jqm-paypal/theme.min.css" />
+		<link rel="stylesheet" href="assets/css/pp_mis_pat.css?v=1.8" />
+		
+		<!-- Do not edit or remove the following jQuery framework files. -->
+		<link rel="stylesheet" href="lib/jquery.mobile.structure-1.3.1.min.css" />
+		<script src="lib/jquery-1.9.1.min.js"></script>
+
+		<!-- HighCharts is used for the bill splitting pie graph. -->
+		<script src="lib/highcharts.js"></script>
+
+		<!-- PayPal Bridge Files. -->
+		<script src="lib/ppbridge.js"></script>
+		<script src="lib/core.js?v=1.2"></script>
+
+		<!-- PayPal Tracking Files. -->
+		<script type="text/javascript" src="https://www.paypalobjects.com/pa/js/min/pa_thirdparty.js"></script>
+
+	</head>
+
+	<body>
+
+		<!-- Start HomePage -->
+		<div data-role="page" data-theme="b" id="home">
+
+			<!-- Start Header Banner - This header banner should be styled with the merchants background and logo, alternatively it can be removed if desired -->
+			<div data-role="header" class="pp-header" data-theme="b">
+				<h1 class="welcome-header">Loading...</h1>
+				<h3 class="hide-on-load welcome-sub">Retrieving merchant details.</h3>
+				<!--<h3 class="show-on-load" style="display:none;">to <span class="merchant_title">[The Restaurant]</span></h3>-->
+				<div class="page_nav">
+					<span>.</span> <span class="inactive">.</span> <span class="inactive">.</span> <span class="inactive">.</span>
+				</div>
+			</div> 
+			<!-- End Header Banner -->
+			<div data-role="content" class="show-on-load" style="display:none;">
+
+				<h4>Tell the staff you're paying with PayPal.</h4>
+				<div class="customerCode-Hide">
+					<br>
+					<p style="font-size:16px;font-weight:bold;">Your bill will appear here automatically.</p>
+				</div>
+
+				<div class="customerCode-Feature" style="display:none;">
+					<p>Show this code to staff when you order: </p>
+					<h3 id="customer_code_container" style="text-align:center;font-size:80px;margin:20px;">5676</h3>
+				</div>
+
+				<p class="tableNum-feature" style="margin-top:30px;font-size:18px;margin-bottom:-15px;">Or, if you know your table number:</p>
+				<form id="table-number-form" class="tableNum-feature">
+					<input autocomplete="off" data-theme="c" type="text" placeholder="ENTER YOUR TABLE NUMBER" name="tableNumber" id="table-number-input"/>
+					<button type="submit" class="flat-blue" data-role="none">View your bill</button>
+				</form>
+				
+			</div> <!-- End Content -->
+
+		</div> <!-- End HomePage -->
+		
+
+
+		<!-- Start Your Bill Page -->
+		<div data-role="page" data-theme="b" id="bill">
+
+			<!-- Start Header Banner - This header banner should be styled with the merchants background and logo, alternatively it can be removed if desired -->
+			<div data-role="header" class="pp-header" data-theme="b">
+				<h2 style="padding-right:100px;">Your bill</h2>
+				<div class="page_nav">
+					<span class="inactive">.</span> <span>.</span> <span class="inactive">.</span> <span class="inactive">.</span>
+				</div>
+				<div class="table-bubble">
+					<div class="tb-square">
+						<p>Table</p>
+						<p class="big-num">0</p>
+					</div>
+					<div class="tb-tip"></div>
+				</div>
+			</div> 
+			<!-- End Header Banner -->
+			<div data-role="content">
+
+				<ul data-role="listview" style="background-color:#fff" data-theme="d">
+					<li id = "change-banner" style="display:none;" data-icon="info" data-role="list-divider" data-theme="e">
+						<h3><img src="assets/img/icons/icon-info.png" height="15" />&nbsp; Bill Changed</h3>
+						<p>Your latest bill is now below. </p>
+					</li>
+					<li>
+						<table id="bill-table" cellspacing="0">
+							<tr id="bill-table-header">
+								<th class="qty-col">Qty</th>
+								<th class="desc-col">Description</th>
+								<th class="price-col">Price</th>
+							</tr>
+							<!-- Example of Item Row that will be added via Javascript.
+							<tr class="item-row">
+								<td class="qty-col">2</td>
+								<td class="desc-col">Hamburger</td>
+								<td class="price-col">$3.56</td>
+							</tr> 
+							-->
+							<tr class="first-sub-row">
+								<td class="sub-row" colspan="2">Sub total</td>
+								<td class="price-col sub_total">$0.00</td>
+							</tr>
+							<tr>
+								<td class="sub-row" colspan="2">Estimated Tax</td>
+								<td class="price-col tax_total">$0.00</td>
+							</tr>
+							<tr class="green_row paid-row">
+								<td class="sub-row" colspan="2">Paid</td>
+								<td class="price-col paid_total">$0.00</td>
+							</tr>
+						</table> 
+					</li>
+				</ul>
+				<div class="button_box">
+					<h2 class="total_display">Total due &nbsp; <span class="grand_total">$0.00</span> </h2>
+					<button id="pay_full_button" class="confirm-button flat-blue" data-role="none">Pay in Full</button>
+					<button  id="split_amount-button" class="flat-blue split-feature" data-role="none">Split by Amount</button>
+					<button  id="split_seat-button" class="flat-blue split-feature" data-role="none">Split by Seat</button>
+					<button  id="split_evenly-button" class="flat-blue split-feature" data-role="none">Split Evenly by #</button>
+					<p id="pay_sorry" style="display:none;">Sorry cloud payments are not available at this time. Ask staff to close out partial payments. </p>
+				</div>
+				
+			</div> <!-- End Content -->
+
+		</div> <!-- End Your Bill Page -->
+
+		<!-- Start Split Bill Page -->
+		<div data-role="page" data-theme="b" id="split">
+
+			<!-- Start Header Banner - This header banner should be styled with the merchants background and logo, alternatively it can be removed if desired -->
+			<div data-role="header" class="pp-header" data-theme="b">
+				<h2 style="padding-right:100px;">Split bill</h2>
+				<div class="page_nav">
+					<span class="inactive">.</span> <span>.</span> <span class="inactive">.</span> <span class="inactive">.</span>
+				</div>
+				<div class="table-bubble">
+					<div class="tb-square">
+						<p>Table</p>
+						<p class="big-num">0</p>
+					</div>
+					<div class="tb-tip"></div>
+				</div>
+
+
+				<div data-role="navbar" id="split-nav">
+				    <ul>
+				        <li><a class="split-type-btn ui-btn-active" id="split-by_amount" href="#">Split by Amount</a></li>
+				        <li><a class="split-type-btn" id="split-by_item"  href="#">Split by Item</a></li>
+				    </ul>
+				</div>
+			</div> 
+			<!-- End Header Banner -->
+			
+
+
+			<div data-role="content">
+				<ul id="split-by-item" class="split-method" data-role="listview" style="border:none;background-color:#fff; display:none;" data-theme="d">
+					<li id="split-taxes-row" style="text-align:right;"><h2>Your Share of Taxes: <span id="shared-tax">$0.00</span></h2></li>
+				</ul>
+				<ul id="split-by-amount" class="split-method" data-role="listview" style="border:none;background-color:#fff" data-theme="d">
+					<li>
+						<div id="container" style="min-width: 310px; height: 300px; margin: 0 auto">
+
+						</div>
+					</li>
+					<li>
+						<input class="ui-hidden-accessible" data-theme="c" type="range" id="split-slider" step="5" value="50" min="0" max="100" data-highlight="true"/>
+					</li>
+				</ul>
+				<div class="button_box">
+					<h2 class="total_display">Your Total&nbsp; <span class="grand_total">$8.95</span> </h2>
+					<button class="confirm-button flat-blue" data-role="none">Confirm Split</button>
+				</div>
+				
+			</div> <!-- End Content -->
+
+		</div> <!-- End Split Bill Page -->
+
+
+
+	<!-- Start Split by Seat Page -->
+		<div data-role="page" data-theme="b" id="split_seat">
+
+			<!-- Start Header Banner - This header banner should be styled with the merchants background and logo, alternatively it can be removed if desired -->
+			<div data-role="header" class="pp-header" data-theme="b">
+				<h2>Split by Seat</h2>
+				<div class="page_nav">
+					<span class="inactive">.</span> <span class="inactive">.</span> <span>.</span> <span class="inactive">.</span>
+				</div>
+				<div class="table-bubble">
+					<div class="tb-square">
+						<p>Table</p>
+						<p class="big-num">0</p>
+					</div>
+					<div class="tb-tip"></div>
+				</div>
+			</div> 
+			<!-- End Header Banner -->
+			<div data-role="content">
+
+				<ul data-role="listview" id="split_seat_list" data-shared-total="0">
+					<li data-theme="c" style="background-color:#fff">
+						<p>Select the seats you would like to pay for: </p>
+					 	<fieldset data-role="controlgroup" data-theme="c" id="split_seat_set">
+
+					    </fieldset>
+					</li>
+				</ul>
+				<div class="button_box">
+					<h2 class="total_display">Total due &nbsp; <span class="grand_total final_total">$0.00</span> </h2>
+					<button class="confirm-button flat-blue" data-role="none">Confirm Split</button>
+				</div>
+				
+			</div> <!-- End Content -->
+
+		</div> <!-- End Split by Seat Page -->
+
+
+	<!-- Start Split Evenly Page -->
+		<div data-role="page" data-theme="b" id="split_evenly">
+
+			<!-- Start Header Banner - This header banner should be styled with the merchants background and logo, alternatively it can be removed if desired -->
+			<div data-role="header" class="pp-header" data-theme="b">
+				<h2>Split Evenly</h2>
+				<div class="page_nav">
+					<span class="inactive">.</span> <span class="inactive">.</span> <span>.</span> <span class="inactive">.</span>
+				</div>
+				<div class="table-bubble">
+					<div class="tb-square">
+						<p>Table</p>
+						<p class="big-num">0</p>
+					</div>
+					<div class="tb-tip"></div>
+				</div>
+			</div> 
+			<!-- End Header Banner -->
+			<div data-role="content">
+
+				<ul data-role="listview" style="background-color:#fff" data-theme="d" id="split-evenly-list">
+					<li>
+						<p>Select how many people to evenly split with: </p>
+						<div class="ui-grid-a">
+							<div class="ui-block-a"><button data-role="none" class="split-even-button" data-split-by="2">2 <span>(50%)</span></button> </div>
+							<div class="ui-block-b"><button data-role="none" class="split-even-button" data-split-by="3">3 <span>(33%)</span></button></div>
+						</div><!-- /grid-a -->
+						<div class="ui-grid-a">
+							<div class="ui-block-a"><button data-role="none" class="split-even-button" data-split-by="4">4 <span>(25%)</span></button></div>
+							<div class="ui-block-b"><button data-role="none" class="split-even-button" data-split-by="5">5 <span>(20%)</span></button></div>
+						</div><!-- /grid-a -->
+						<div class="ui-grid-a">
+							<div class="ui-block-a"><button data-role="none" class="split-even-button" data-split-by="6">6 <span>(17%)</span></button></div>
+							<div class="ui-block-b"><button data-role="none" class="split-even-button" data-split-by="7">7 <span>(14%)</span></button></div>
+						</div><!-- /grid-a -->
+						<div class="ui-grid-a">
+							<div class="ui-block-a"><button data-role="none" class="split-even-button" data-split-by="8">8 <span>(13%)</span></button></div>
+							<div class="ui-block-b"><button data-role="none" class="split-even-button" data-split-by="9">9 <span>(11%)</span></button></div>
+						</div><!-- /grid-a -->
+						<div class="ui-grid-solo">
+							<div class="ui-block-solo"><input autocomplete="off" data-theme="c" type="number" placeholder="OR ENTER AMOUNT $" step="0.01" name="split-evenly-custom" id="split-evenly-custom"/></div>
+						</div><!-- /grid-a -->
+
+						<table id="bill-table" cellspacing="0">
+							<tr>
+								<td id="final-total-text" class="sub-row" colspan="2">Your sub total</td>
+								<td class="price-col sub_total shared_sub">$0.00</td>
+							</tr>
+							<tr>
+								<td id="final-total-text" class="sub-row" colspan="2">Your share of tax</td>
+								<td class="price-col shared_tax tac_total">$0.00</td>
+							</tr>
+
+
+						</table> 
+					</li>
+				</ul>
+				<div class="button_box">
+					<h2 class="total_display">Total due &nbsp; <span class="grand_total final_total">$8.95</span> </h2>
+					<button class="confirm-button flat-blue" data-role="none">Confirm Split</button>
+				</div>
+				
+			</div> <!-- End Content -->
+
+		</div> <!-- End Split Evenly Page -->
+
+
+		<!-- Start Tip Page -->
+		<div data-role="page" data-theme="b" id="tip">
+
+			<!-- Start Header Banner - This header banner should be styled with the merchants background and logo, alternatively it can be removed if desired -->
+			<div data-role="header" class="pp-header" data-theme="b">
+				<h2>Add a tip?</h2>
+				<div class="page_nav">
+					<span class="inactive">.</span> <span class="inactive">.</span> <span>.</span> <span class="inactive">.</span>
+				</div>
+				<div class="table-bubble">
+					<div class="tb-square">
+						<p>Table</p>
+						<p class="big-num">0</p>
+					</div>
+					<div class="tb-tip"></div>
+				</div>
+			</div> 
+			<!-- End Header Banner -->
+			<div data-role="content">
+
+				<ul data-role="listview" style="background-color:#fff" data-theme="d">
+					<li>
+
+						<div class="ui-grid-a">
+							<div class="ui-block-a"><button data-role="none" class="tip-button" data-tip-percent="0">No tip</button> </div>
+							<div class="ui-block-b"><button data-role="none" class="tip-button" data-tip-percent="18">+ 18%</button></div>
+						</div><!-- /grid-a -->
+						<div class="ui-grid-a">
+							<div class="ui-block-a"><button data-role="none" class="tip-button" data-tip-percent="20">+ 20%</button></div>
+							<div class="ui-block-b"><button data-role="none" class="tip-button" data-tip-percent="22">+ 22%</button></div>
+						</div><!-- /grid-a -->
+						<div class="ui-grid-solo">
+							<div class="ui-block-solo"><input autocomplete="off" data-theme="c" type="number" placeholder="OR ENTER TIP AMOUNT $" step="0.01" name="tip" id="other-tip-amount"/></div>
+						</div><!-- /grid-a -->
+
+						<table id="bill-table" cellspacing="0">
+							<tr>
+								<td id="final-total-text" class="sub-row" colspan="2">Bill total</td>
+								<td class="price-col grand_total">$0.00</td>
+							</tr>
+							<tr class="green_row">
+								<td class="sub-row" colspan="2">Tip</td>
+								<td class="price-col tip_total">$0.00</td>
+							</tr>
+						</table> 
+					</li>
+				</ul>
+				<div class="button_box">
+					<h2 class="total_display">Total due &nbsp; <span class="grand_total final_total">$8.95</span> </h2>
+					<button id="pay-button" class="flat-blue" data-role="none">Pay with  <img style="vertical-align:middle;" height="28" src="assets/img/icons/PPWhite.png" /> </button>
+				</div>
+				
+			</div> <!-- End Content -->
+
+		</div> <!-- End Tip Page -->
+
+
+		<!-- Start Confirmation Page -->
+		<div data-role="page" data-theme="b" id="success">
+
+			<!-- Start Header Banner - This header banner should be styled with the merchants background and logo, alternatively it can be removed if desired -->
+			<div data-role="header" class="pp-header" data-theme="b">
+				<h2 style="padding-right:100px;white-space:normal;">You paid&nbsp;<span class="grand_total final_total">$8.95</span></h2>
+				<h2 style="padding-right:100px;white-space:normal;color:#01DF01;">and saved $5.00</h2><!-- If API response includes specialOfferRedeemed field, display "and saved $xx.xx" where xx.xx is the amount sent back in the specialOffersRedeemed object. -->
+				<div class="table-bubble">
+					<div class="tb-square">
+						<p>Table</p>
+						<p class="big-num">0</p>
+					</div>
+					<div class="tb-tip"></div>
+				</div>
+				<div class="check-holder">
+					<img height="100" src="assets/img/white-check.png" style="z-index=-100;" />
+				</div>
+				<h1>Success</h1>
+				<h5 style="color: white;">We'll email your receipt to you.</h5>
+				</br></br>
+				<h3 style="color: white;">Your table still owes $8.95</h3><!-- Should be items + tax, minus discounts and minus any payments applied. It should not reflect or display any tip amounts that another customer may have paid. -->
+				<div class="page_nav" style="margin-top:10px;">
+					<span class="inactive">.</span> <span class="inactive">.</span> <span class="inactive">.</span> <span>.</span>
+				</div>
+
+			</div> 
+			<!-- End Header Banner -->
+			<div data-role="content">
+				<h4 style="font-size:20px;">We want to hear from you!</h4>
+				<span><h3 style="font-size:12px;">Tell us about your experience.</h3></span>
+				<button class="confirm-button flat-blue" data-role="none" onclick="sendFeedback()">Feedback</button>
+			</div> <!-- End Content -->
+
+		</div> <!-- End Confirmation Page -->
+
+
+		<script src="lib/jquery.mobile-1.3.1.min.js"></script>
+		<!-- The below js, and css are used for the Order-Ahead Template functionality and styles beyond that of JQM framework -->
+
+		<script src="assets/js/pp_pat.js?v-9"></script>
+		
+		<!-- Declaring some global variables here for use in the cart and PP Order Ahead JS. -->
+		<script type="text/javascript">
+
+		</script>
+
+		<script>
+			function sendFeedback() {
+				window.location.href = "";
+			}
+		</script>
+
+	</body>
+</html>
